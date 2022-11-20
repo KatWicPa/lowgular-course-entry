@@ -1,11 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ViewEncapsulation,
-} from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { EmployeeModel } from '../../model/employee.model';
-import {HttpClient} from "@angular/common/http";
+import { EmployeeService } from '../../services/employee.service';
 
 @Component({
   selector: 'employee-list',
@@ -14,6 +11,7 @@ import {HttpClient} from "@angular/common/http";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeeListComponent {
-  constructor(private _client: HttpClient) {}
-  data$: Observable<EmployeeModel[] | null> = this._client.get<EmployeeModel[]>('https://eqsfaxnghe.cfolks.pl/assets/data/employees.json');
+  data$: Observable<EmployeeModel[] | null> = this._employeeService.getAll();
+  constructor(private _employeeService: EmployeeService) {
+  }
 }
